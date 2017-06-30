@@ -3,9 +3,8 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)
 
 
-**GLCodeScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式
+**GLCodeScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式。
 
-<!--![image](https://github.com/hujewelz/HUPhotoBrowser/blob/master/screenshot/2016-04-3008_57_13.gif)-->
  
 ## GLCodeScanner的使用
 在需要用到的地方 `#import <GLCodeScanner.h>`
@@ -85,7 +84,7 @@
 ## 安装
 1. [CocoaPods](https://cocoapods.org/)安装：
 ```
-pod 'GLCodeScanner' 
+    pod 'GLCodeScanner' 
 ```
 2. 下载ZIP包,将`GLCodeScanner`资源文件拖到工程中。
 
