@@ -56,9 +56,9 @@
 
 - (void)initBlock {
 
-    if ([self.viewControllers.firstObject isKindOfClass:[GLScannerViewController class]]) {
-        GLScannerViewController *rootScannerViewController = (GLScannerViewController *)self.viewControllers.firstObject;
-        
+//    if ([self.viewControllers.firstObject isKindOfClass:[GLScannerViewController class]]) {
+//        GLScannerViewController *rootScannerViewController = (GLScannerViewController *)self.viewControllers.firstObject;
+//        
 //        //失败回调
 //        rootScannerViewController.onError = ^(NSError *error) {
 //            if (self.onError) {
@@ -72,15 +72,15 @@
 //                self.completion(value);
 //            }
 //        };
-    }
+//    }
 
 }
 
 - (void)setTitleColor:(UIColor *)titleColor tintColor:(UIColor *)tintColor {
     
-    if ([self.viewControllers.firstObject isKindOfClass:[GLScannerViewController class]]) {
-        GLScannerViewController *rootScannerViewController = (GLScannerViewController *)self.viewControllers.firstObject;
-    }
+//    if ([self.viewControllers.firstObject isKindOfClass:[GLScannerViewController class]]) {
+//        GLScannerViewController *rootScannerViewController = (GLScannerViewController *)self.viewControllers.firstObject;
+//    }
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:titleColor}];
     self.navigationBar.tintColor = tintColor;
 }

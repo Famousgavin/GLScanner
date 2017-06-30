@@ -26,7 +26,6 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
                     最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式
-                    最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式
                    DESC
 
   s.homepage     = "https://github.com/Gavin-ldh/GLCodeScanner"
@@ -81,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/Gavin-ldh/GLCodeScanner", :tag => s.version }
+  s.source       = { :git => "https://github.com/Gavin-ldh/GLCodeScanner.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
