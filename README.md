@@ -80,8 +80,8 @@
 <!--}-->
 
 
-```
 ## 安装
+
 1. [CocoaPods](https://cocoapods.org/)安装：
 ```
     pod 'GLCodeScanner' 
