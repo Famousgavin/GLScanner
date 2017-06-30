@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860256651F04E4EE002A2450 /* GLScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 860256641F04E4EE002A2450 /* GLScannerMaskView.m */; };
+		860256671F04FA3D002A2450 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 860256661F04FA3D002A2450 /* test.png */; };
+		8602566A1F05F89B002A2450 /* GLNavigationType1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860256691F05F89B002A2450 /* GLNavigationType1ViewController.m */; };
+		8602566D1F05F8A6002A2450 /* GLNavigationType2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8602566C1F05F8A6002A2450 /* GLNavigationType2ViewController.m */; };
 		86BD40751F02680E0075F3EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40741F02680E0075F3EC /* main.m */; };
 		86BD40781F02680E0075F3EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40771F02680E0075F3EC /* AppDelegate.m */; };
 		86BD407B1F02680E0075F3EC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD407A1F02680E0075F3EC /* ViewController.m */; };
@@ -15,6 +19,15 @@
 		86BD40831F02680E0075F3EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86BD40811F02680E0075F3EC /* LaunchScreen.storyboard */; };
 		86BD408E1F02680E0075F3EC /* GLCodeScannerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD408D1F02680E0075F3EC /* GLCodeScannerTests.m */; };
 		86BD40991F02680E0075F3EC /* GLCodeScannerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40981F02680E0075F3EC /* GLCodeScannerUITests.m */; };
+		86BD40B81F02689B0075F3EC /* GLScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40B11F02689B0075F3EC /* GLScanner.m */; };
+		86BD40BA1F0268A40075F3EC /* GLScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 86BD40B91F0268A40075F3EC /* GLScanner.bundle */; };
+		86BD40BD1F035DF30075F3EC /* GLScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40BC1F035DF30075F3EC /* GLScannerBorder.m */; };
+		86BD40BF1F038E2B0075F3EC /* ScannerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86BD40BE1F038E2B0075F3EC /* ScannerLocalizable.strings */; };
+		86BD40C51F03BDAD0075F3EC /* GLScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40C41F03BDAD0075F3EC /* GLScannerViewController.m */; };
+		86BD40CB1F03C21D0075F3EC /* GLScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40CA1F03C21D0075F3EC /* GLScannerController.m */; };
+		86BD40CF1F03E8900075F3EC /* UIImage+GLAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40CE1F03E8900075F3EC /* UIImage+GLAdd.m */; };
+		86BD40D21F03F0510075F3EC /* GLScannerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40D11F03F0510075F3EC /* GLScannerConfig.m */; };
+		86BD40D81F049F600075F3EC /* GLScannerError.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BD40D71F049F600075F3EC /* GLScannerError.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +48,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		860256631F04E4EE002A2450 /* GLScannerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerMaskView.h; sourceTree = "<group>"; };
+		860256641F04E4EE002A2450 /* GLScannerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerMaskView.m; sourceTree = "<group>"; };
+		860256661F04FA3D002A2450 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		860256681F05F89B002A2450 /* GLNavigationType1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNavigationType1ViewController.h; sourceTree = "<group>"; };
+		860256691F05F89B002A2450 /* GLNavigationType1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNavigationType1ViewController.m; sourceTree = "<group>"; };
+		8602566B1F05F8A6002A2450 /* GLNavigationType2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNavigationType2ViewController.h; sourceTree = "<group>"; };
+		8602566C1F05F8A6002A2450 /* GLNavigationType2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNavigationType2ViewController.m; sourceTree = "<group>"; };
 		86BD40701F02680E0075F3EC /* GLCodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLCodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86BD40741F02680E0075F3EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86BD40761F02680E0075F3EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +71,22 @@
 		86BD40941F02680E0075F3EC /* GLCodeScannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GLCodeScannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86BD40981F02680E0075F3EC /* GLCodeScannerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GLCodeScannerUITests.m; sourceTree = "<group>"; };
 		86BD409A1F02680E0075F3EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86BD40B11F02689B0075F3EC /* GLScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScanner.m; sourceTree = "<group>"; };
+		86BD40B21F02689B0075F3EC /* GLScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScanner.h; sourceTree = "<group>"; };
+		86BD40B91F0268A40075F3EC /* GLScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GLScanner.bundle; path = ../GLScanner.bundle; sourceTree = "<group>"; };
+		86BD40BB1F035DF30075F3EC /* GLScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerBorder.h; sourceTree = "<group>"; };
+		86BD40BC1F035DF30075F3EC /* GLScannerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerBorder.m; sourceTree = "<group>"; };
+		86BD40BE1F038E2B0075F3EC /* ScannerLocalizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ScannerLocalizable.strings; path = ../ScannerLocalizable.strings; sourceTree = "<group>"; };
+		86BD40C31F03BDAD0075F3EC /* GLScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerViewController.h; sourceTree = "<group>"; };
+		86BD40C41F03BDAD0075F3EC /* GLScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerViewController.m; sourceTree = "<group>"; };
+		86BD40C91F03C21D0075F3EC /* GLScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerController.h; sourceTree = "<group>"; };
+		86BD40CA1F03C21D0075F3EC /* GLScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerController.m; sourceTree = "<group>"; };
+		86BD40CD1F03E8900075F3EC /* UIImage+GLAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GLAdd.h"; sourceTree = "<group>"; };
+		86BD40CE1F03E8900075F3EC /* UIImage+GLAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GLAdd.m"; sourceTree = "<group>"; };
+		86BD40D01F03F0510075F3EC /* GLScannerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerConfig.h; sourceTree = "<group>"; };
+		86BD40D11F03F0510075F3EC /* GLScannerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerConfig.m; sourceTree = "<group>"; };
+		86BD40D61F049F600075F3EC /* GLScannerError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerError.h; sourceTree = "<group>"; };
+		86BD40D71F049F600075F3EC /* GLScannerError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerError.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +137,16 @@
 		86BD40721F02680E0075F3EC /* GLCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
+				86BD40A61F0268430075F3EC /* QRCode */,
 				86BD40761F02680E0075F3EC /* AppDelegate.h */,
 				86BD40771F02680E0075F3EC /* AppDelegate.m */,
 				86BD40791F02680E0075F3EC /* ViewController.h */,
 				86BD407A1F02680E0075F3EC /* ViewController.m */,
+				860256681F05F89B002A2450 /* GLNavigationType1ViewController.h */,
+				860256691F05F89B002A2450 /* GLNavigationType1ViewController.m */,
+				8602566B1F05F8A6002A2450 /* GLNavigationType2ViewController.h */,
+				8602566C1F05F8A6002A2450 /* GLNavigationType2ViewController.m */,
+				860256661F04FA3D002A2450 /* test.png */,
 				86BD407C1F02680E0075F3EC /* Main.storyboard */,
 				86BD407F1F02680E0075F3EC /* Assets.xcassets */,
 				86BD40811F02680E0075F3EC /* LaunchScreen.storyboard */,
@@ -138,6 +180,47 @@
 				86BD409A1F02680E0075F3EC /* Info.plist */,
 			);
 			path = GLCodeScannerUITests;
+			sourceTree = "<group>";
+		};
+		86BD40A61F0268430075F3EC /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				86BD40CC1F03E8740075F3EC /* Category */,
+				86BD40C21F038E4E0075F3EC /* Resource */,
+				86BD40C91F03C21D0075F3EC /* GLScannerController.h */,
+				86BD40CA1F03C21D0075F3EC /* GLScannerController.m */,
+				86BD40C31F03BDAD0075F3EC /* GLScannerViewController.h */,
+				86BD40C41F03BDAD0075F3EC /* GLScannerViewController.m */,
+				86BD40BB1F035DF30075F3EC /* GLScannerBorder.h */,
+				86BD40BC1F035DF30075F3EC /* GLScannerBorder.m */,
+				860256631F04E4EE002A2450 /* GLScannerMaskView.h */,
+				860256641F04E4EE002A2450 /* GLScannerMaskView.m */,
+				86BD40B21F02689B0075F3EC /* GLScanner.h */,
+				86BD40B11F02689B0075F3EC /* GLScanner.m */,
+				86BD40D01F03F0510075F3EC /* GLScannerConfig.h */,
+				86BD40D11F03F0510075F3EC /* GLScannerConfig.m */,
+				86BD40D61F049F600075F3EC /* GLScannerError.h */,
+				86BD40D71F049F600075F3EC /* GLScannerError.m */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
+		86BD40C21F038E4E0075F3EC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				86BD40BE1F038E2B0075F3EC /* ScannerLocalizable.strings */,
+				86BD40B91F0268A40075F3EC /* GLScanner.bundle */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		86BD40CC1F03E8740075F3EC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				86BD40CD1F03E8900075F3EC /* UIImage+GLAdd.h */,
+				86BD40CE1F03E8900075F3EC /* UIImage+GLAdd.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +332,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86BD40BF1F038E2B0075F3EC /* ScannerLocalizable.strings in Resources */,
 				86BD40831F02680E0075F3EC /* LaunchScreen.storyboard in Resources */,
 				86BD40801F02680E0075F3EC /* Assets.xcassets in Resources */,
 				86BD407E1F02680E0075F3EC /* Main.storyboard in Resources */,
+				86BD40BA1F0268A40075F3EC /* GLScanner.bundle in Resources */,
+				860256671F04FA3D002A2450 /* test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +362,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86BD40BD1F035DF30075F3EC /* GLScannerBorder.m in Sources */,
+				8602566D1F05F8A6002A2450 /* GLNavigationType2ViewController.m in Sources */,
 				86BD407B1F02680E0075F3EC /* ViewController.m in Sources */,
 				86BD40781F02680E0075F3EC /* AppDelegate.m in Sources */,
+				86BD40CB1F03C21D0075F3EC /* GLScannerController.m in Sources */,
+				86BD40C51F03BDAD0075F3EC /* GLScannerViewController.m in Sources */,
+				86BD40D81F049F600075F3EC /* GLScannerError.m in Sources */,
+				86BD40B81F02689B0075F3EC /* GLScanner.m in Sources */,
+				86BD40D21F03F0510075F3EC /* GLScannerConfig.m in Sources */,
 				86BD40751F02680E0075F3EC /* main.m in Sources */,
+				860256651F04E4EE002A2450 /* GLScannerMaskView.m in Sources */,
+				86BD40CF1F03E8900075F3EC /* UIImage+GLAdd.m in Sources */,
+				8602566A1F05F89B002A2450 /* GLNavigationType1ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +612,7 @@
 				86BD409F1F02680E0075F3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86BD40A01F02680E0075F3EC /* Build configuration list for PBXNativeTarget "GLCodeScannerTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +621,7 @@
 				86BD40A21F02680E0075F3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86BD40A31F02680E0075F3EC /* Build configuration list for PBXNativeTarget "GLCodeScannerUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +630,7 @@
 				86BD40A51F02680E0075F3EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
