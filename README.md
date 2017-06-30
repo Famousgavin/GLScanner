@@ -81,14 +81,14 @@
 <!--}-->
 
 
-```
 ## 安装
+
 1. [CocoaPods](https://cocoapods.org/)安装：
 ```
 pod 'GLCodeScanner' 
 ```
 2. 下载ZIP包,将`GLCodeScanner`资源文件拖到工程中。
-```
+
 
 ## 其他
 为了不影响您项目中导入的其他第三方库，本库没有导入任何其他的第三方内容，可以放心使用。在使用前，您可以查看Demo
