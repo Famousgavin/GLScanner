@@ -7,6 +7,8 @@ target 'GLScannerDemo' do
 
   # Pods for GLScannerDemo
 
+   pod 'GLScanner', '~> 1.0.0’
+
   target 'GLScannerDemoTests' do
     inherit! :search_paths
     # Pods for testing

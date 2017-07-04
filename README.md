@@ -1,13 +1,13 @@
 # GLScanner
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hujewelz/HUPhotoBrowser/master/LICENSE)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gavin-ldh/GLScanner/master/LICENSE)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLScanner.svg)
 
 
-**GLCodeScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式。
+**GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式。
 
  
-## GLCodeScanner的使用
-在需要用到的地方 `#import <GLCodeScanner.h>`
+## GLScanner的使用
+在需要用到的地方 `#import <GLScanner.h>`
 
 <!--HUPhotoBrowser支持本地图片浏览-->
 <!---->
@@ -84,9 +84,9 @@
 
 1. [CocoaPods](https://cocoapods.org/)安装：
 ```
-    pod 'GLCodeScanner' 
+    pod 'GLScanner' 
 ```
-2. 下载ZIP包,将`GLCodeScanner`资源文件拖到工程中。
+2. 下载ZIP包,将`GLScanner`资源文件拖到工程中。
 
 
 ## 其他
