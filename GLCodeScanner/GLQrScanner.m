@@ -1,19 +1,18 @@
 //
-//  GLScanner.m
-//  GLCodeScanner
+//  GLQrScanner.m
+//  Pods
 //
-//  Created by Gavin on 17/1/2.
-//  Copyright © 2017年 itheima. All rights reserved.
+//  Created by Gavin on 2017/7/4.
+//
 //
 
-
+#import "GLQrScanner.h"
 #import "GLScannerConfig.h"
 #import "GLScannerViewController.h"
-#import "GLScanner.h"
 #import <AVFoundation/AVFoundation.h>
 
 
-@interface GLScanner() <AVCaptureMetadataOutputObjectsDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface GLQrScanner() <AVCaptureMetadataOutputObjectsDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
 /**  设备  */
 @property (nonatomic, strong) AVCaptureDevice *device;
@@ -45,16 +44,16 @@
 
 @end
 
-@implementation GLScanner
-
-
+@implementation GLQrScanner
+    
+    
 #pragma mark - 构造函数
 + (instancetype)scanerWithInView:(UIView *)inView scanFrame:(CGRect)scanFrame completion:(void (^)(NSString *))completion {
     return [[self alloc] initWithInView:inView scanFrame:scanFrame completion:completion];
 }
-
+    
 - (instancetype)initWithInView:(UIView *)inView scanFrame:(CGRect)scanFrame completion:(void (^)(NSString *))completion {
-
+    
     if ([super init]) {
         self.inView = inView;
         self.scanFrame = scanFrame;
@@ -64,11 +63,11 @@
     }
     return self;
 }
-
+    
 #pragma mark 初始化扫描会话
 - (void)initSession {
     
-//1.输入设备
+    //1.输入设备
     if (self.device == nil) {
         self.device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         [self.device lockForConfiguration:nil];
@@ -122,7 +121,7 @@
     [self setupLayers];
     
 }
-
+    
 #pragma mark 设置绘制图层和预览图层
 - (void)setupLayers {
     
@@ -150,16 +149,16 @@
         self.previewLayer.frame = self.inView.bounds;
         [self.inView.layer insertSublayer:self.previewLayer atIndex:0];
     }
-
+    
 }
-
-
+    
+    
 #pragma mark - Methods
 #pragma mark  生成二维码 icon默认大小
 + (void)qrImageWithString:(NSString *)string icon:(UIImage *)icon completion:(void (^)(UIImage *))completion {
     [self qrImageWithString:string icon:icon scale:0.20 completion:completion];
 }
-
+    
 #pragma mark  生成二维码 icon自定义大小
 + (void)qrImageWithString:(NSString *)string icon:(UIImage *)icon scale:(CGFloat)scale completion:(void (^)(UIImage *))completion {
     //参数处理
@@ -191,8 +190,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{ completion(qrImage); });
     });
 }
-
-
+    
+    
 #pragma mark  扫描图像方法
 + (void)scaneImage:(UIImage *)image completion:(void (^)(NSArray *values))completion {
     
@@ -222,7 +221,7 @@
         });
     });
 }
-
+    
 #pragma mark 开始扫描
 - (void)startScan {
     if ([self.session isRunning]) {
@@ -232,7 +231,7 @@
     
     [self.session startRunning];
 }
-
+    
 #pragma mark 停止扫描
 - (void)stopScan {
     if (![self.session isRunning]) {
@@ -240,7 +239,7 @@
     }
     [self.session stopRunning];
 }
-
+    
 #pragma mark 添加图像捕捉输出
 - (void)addCaptureImage:(void(^)(NSInteger bright))brightBlock {
     //是否可用
@@ -254,7 +253,7 @@
         self.brightBlock = brightBlock;
     }
 }
-
+    
 #pragma mark 设置手电筒开关
 - (void)setTorch:(BOOL)isOpen {
     Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
@@ -270,12 +269,12 @@
         }
     }
 }
-
-
+    
+    
 #pragma mark - Action
 + (UIImage *)qrcodeImage:(UIImage *)qrImage icon:(UIImage *)icon scale:(CGFloat)scale {
     if (icon) {
-
+        
         //不在范围 使用默认大小
         if (scale > 1.0 || scale <= 0.0) {
             scale = 0.2;
@@ -303,18 +302,18 @@
     }
     return qrImage;
 }
-
+    
 #pragma mark - Protocol
 #pragma mark  AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     
-//    if(metadataObjects.count > 0 && metadataObjects != nil) {
-//        AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects lastObject];
-//        NSString *result = metadataObject.stringValue;
-//        [self requeSignIn:result];
-//        [self.session stopRunning];
-//        //        [self.scanline removeFromSuperview];
-//    }
+    //    if(metadataObjects.count > 0 && metadataObjects != nil) {
+    //        AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects lastObject];
+    //        NSString *result = metadataObject.stringValue;
+    //        [self requeSignIn:result];
+    //        [self.session stopRunning];
+    //        //        [self.scanline removeFromSuperview];
+    //    }
     
     for (id obj in metadataObjects) {
         // 判断检测到的对象类型
@@ -343,8 +342,8 @@
             }
         }else{
             if (self.currentDetectedCount++ > self.maxDetectedCount) {
-//                // 绘制边角
-//                [self drawCornersShape:metadataObject];
+                //                // 绘制边角
+                //                [self drawCornersShape:metadataObject];
                 
                 //移除
                 [self clearDrawLayer];
@@ -352,20 +351,20 @@
             }
         }
         
-//        if (self.currentDetectedCount++ < self.maxDetectedCount) {
-////            // 绘制边角
-////            [self drawCornersShape:metadataObject];
-//        } else {
-//            [self stopScan];
-//            
-//            // 完成回调
-//            if (self.completionCallBack != nil) {
-//                self.completionCallBack(metadataObject.stringValue);
-//            }
-//        }
+        //        if (self.currentDetectedCount++ < self.maxDetectedCount) {
+        ////            // 绘制边角
+        ////            [self drawCornersShape:metadataObject];
+        //        } else {
+        //            [self stopScan];
+        //
+        //            // 完成回调
+        //            if (self.completionCallBack != nil) {
+        //                self.completionCallBack(metadataObject.stringValue);
+        //            }
+        //        }
     }
 }
-
+    
 #pragma mark 清空绘制图层
 - (void)clearDrawLayer {
     if (self.drawLayer.sublayers.count == 0) {
@@ -374,7 +373,7 @@
     
     [self.drawLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
 }
-
+    
 #pragma mark 绘制条码形状 dataObject识别到的数据对象
 - (void)drawCornersShape:(AVMetadataMachineReadableCodeObject *)metadataObject {
     
@@ -390,7 +389,7 @@
     
     [self.drawLayer addSublayer:layer];
 }
-
+    
 #pragma mark 使用 corners 数组生成绘制路径  corners corners 数组 return 绘制路径
 - (CGPathRef)cornersPath:(NSArray *)corners {
     
@@ -413,29 +412,29 @@
     
     return path.CGPath;
 }
-
-
+    
+    
 #pragma mark  AVCaptureVideoDataOutputSampleBuffer prptocol
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     NSInteger bright = [self getBrightWith:sampleBuffer];
-//    NSLog(@"%d",bright);
+    //    NSLog(@"%d",bright);
     dispatch_async(dispatch_get_main_queue(), ^{
         self.brightBlock(bright);
     });
 }
-
+    
 - (NSInteger)getBrightWith:(CMSampleBufferRef)sampleBuffer {
-
+    
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     CVPixelBufferLockBaseAddress(imageBuffer, 0);
     
     unsigned char * baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
-
+    
     size_t width = CVPixelBufferGetWidth(imageBuffer);
     size_t height = CVPixelBufferGetHeight(imageBuffer);
-
-     CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+    
+    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
     
     NSInteger num = 1;
     NSInteger bright = 0;
@@ -455,7 +454,7 @@
     bright = (bright / num);
     return bright;
 }
-
+    
 - (AVCaptureVideoDataOutput *)videoDataOutput {
     if (_videoDataOutput == nil) {
         _videoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -465,11 +464,11 @@
     }
     return _videoDataOutput;
 }
-
+    
 - (BOOL)isTorchOpen {
     return self.device.isTorchActive;
 }
-
+    
 - (NSInteger)maxDetectedCount {
     if (_maxDetectedCount == 0) {
         /**  默认20次  */

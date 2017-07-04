@@ -7,7 +7,7 @@
 //
 
 
-#import "GLScanner.h"
+#import "GLQrScanner.h"
 #import "GLScannerBorder.h"
 
 @interface GLScannerBorder ()

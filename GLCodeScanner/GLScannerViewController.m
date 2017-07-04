@@ -18,7 +18,7 @@
 #import "UIImage+GLAdd.h"
 #import "GLScannerViewController.h"
 #import "GLScannerBorder.h"
-#import "GLScanner.h"
+#import "GLQrScanner.h"
 
 
 typedef NS_ENUM(NSInteger, GLScannerInitType) {
@@ -36,7 +36,7 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
 /**  扫描框  */
 @property (nonatomic, strong) GLScannerBorder *scannerBorder;
 /**  扫描器  */
-@property (nonatomic, strong) GLScanner *scanner;
+@property (nonatomic, strong) GLQrScanner *scanner;
 /**  提示标签  */
 @property (nonatomic, strong) UILabel *tipLabel;
 /**  手电筒  */
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     // 实例化扫描器
     __weak typeof(self) weakSelf = self;
     if (self.scanner == nil) {
-        self.scanner = [GLScanner scanerWithInView:self.view scanFrame:self.scannerBorder.frame completion:^(NSString *stringValue) {
+        self.scanner = [GLQrScanner scanerWithInView:self.view scanFrame:self.scannerBorder.frame completion:^(NSString *stringValue) {
             // 完成回调
             if (weakSelf.completion) {
                 weakSelf.completion(stringValue);
@@ -137,12 +137,14 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
 #pragma mark 初始化导航栏
 - (void)initNavigationBar {
     //背景颜色
-//    [self.navigationController.navigationBar setBarTintColor:self.barTintColor];
+    if (self.initType == GLScannerInitTypeCode) {
+        [self.navigationController.navigationBar setBarTintColor:self.barTintColor];
+    }
+
     self.navigationController.navigationBar.translucent = true;
     
     //标题
     self.title = self.titleString;
-    
     
     //左右按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -298,7 +300,7 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     if (image) {
         // 扫描图像
         image = [image imageByResizeToSize:kImageMaxSize contentMode:UIViewContentModeScaleAspectFit];
-        [GLScanner scaneImage:image completion:^(NSArray *values) {
+        [GLQrScanner scaneImage:image completion:^(NSArray *values) {
             
             if (values.count > 0) {
                 if (self.completion) {
