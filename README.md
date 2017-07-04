@@ -1,4 +1,4 @@
-# GLCodeScanner
+# GLScanner
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hujewelz/HUPhotoBrowser/master/LICENSE)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)
 
