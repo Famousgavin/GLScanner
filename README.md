@@ -44,11 +44,8 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 ```
     pod 'GLScanner' 
 ```
-如果搜索不到，请先运行
-`
-rm ~/Library/Caches/CocoaPods/search_index.json
-`
-在搜索。
+如果搜索不到，请先运行 `rm ~/Library/Caches/CocoaPods/search_index.json` 在搜索。
+ 
 2. 下载ZIP包,将`GLScanner`资源文件拖到工程中。
 <br>
 <br>
