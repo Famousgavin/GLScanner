@@ -1,6 +1,6 @@
 # GLScanner
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gavin-ldh/GLScanner/master/LICENSE)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLScanner.svg)](https://img.shields.io/cocoapods/v/GLScanner.svg)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLScanner.svg)
 
 
 **GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；个性化修改，错误处理回调。
@@ -14,7 +14,11 @@
 
  
 ## 一、使用
+
 在需要用到的地方 `#import <GLScanner.h>`
+
+Xcode8.0以上要求在使用相机或者相册等，项目`info.plist`要添加`Privacy - Photo Library Usage Description`和`Privacy - Camera Usage Description`键值对，不然不给访问;不然不给访问;不然不给访问。千万比而忘记了!!!!!!!!
+
 ```
 GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
 	#pragma mark UI初始化个性修改 
