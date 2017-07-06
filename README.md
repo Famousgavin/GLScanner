@@ -6,14 +6,14 @@
 **GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；个性化修改，错误处理回调。
 
 ```
-1、一个方法初始化所有，Block回调，简单方便
-2、支持个性化修改UI
-3、支持多语言设置(英语、简体中文、繁体中文)，或者自己设置所有语言
+1. 一个方法初始化所有，Block回调，简单方便
+2. 支持个性化修改UI
+3. 支持多语言设置(英语、简体中文、繁体中文)，或者自己设置所有语言
 ```
 <br>
 
  
-## 使用
+## 一、使用
 在需要用到的地方 `#import <GLScanner.h>`
 ```
 GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
@@ -34,7 +34,7 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 <br>
 <br>
 
-## 安装
+## 二、安装
 1. [CocoaPods](https://cocoapods.org/)安装：
 ```
     pod 'GLScanner' 
@@ -43,7 +43,7 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 <br>
 <br>
 
-## 其他
+## 三、其它
 为了不影响您项目中导入的其他第三方库，本库没有导入任何其他的第三方内容，可以放心使用。在使用前，您有任何不明白都可以查看Demo或者点击[使用详解](http://www.jianshu.com/p/f9ca42635689)。
 * 如果在使用过程中遇到BUG，希望你能Issues我，谢谢（或者尝试下载最新的框架代码看看BUG修复没有）
 * 如果您有什么建议可以Issues我，谢谢
