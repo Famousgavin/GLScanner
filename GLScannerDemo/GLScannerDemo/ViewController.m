@@ -65,20 +65,20 @@
             //设置bar背景图片或者颜色 二选一 优先图片
             rootScannerView.barBackgroundImage = [UIImage imageNamed:@"bar_background"];
             //rootScannerView.barBackgroundTintColor = [UIColor lightGrayColor];
-            
+
             //统一设置bar 和扫描工作的图片的颜色
             rootScannerView.tintColor = [UIColor whiteColor];
-            
+
             //设置遮挡颜色
             //rootScannerView.coverColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
-            
+
             //自定义左侧item
             rootScannerView.leftBarButtonItem = ^UIButton *(UIButton *leftButton) {
                 //可以修改button的一些属性
                 //自己创建一个返回也可以 可以自己实现触发方法
                 return leftButton;
             };
-            
+
             //自定义右侧item
             rootScannerView.rightBarButtonItem = ^UIButton *(UIButton *rightButton) {
                 //可以修改button的一些属性
@@ -88,10 +88,10 @@
                 //自己创建一个返回也可以
                 return rightButton;
             };
-            
+
             //可以隐藏右侧ltem
             rootScannerView.hiddenRightBarButtonItem = true;
-            
+
             //隐藏提示label
             //rootScannerView.hiddenTipLabel = true;
             
