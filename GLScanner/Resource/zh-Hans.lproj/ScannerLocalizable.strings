@@ -1,0 +1,19 @@
+/* 
+  ScannerLocalizable.strings
+  GLCodeScanner
+
+  Created by Gavin on 2017/6/28.
+  Copyright © 2017年 Gavin. All rights reserved.
+*/
+
+//简体
+
+"GLScanner_1"="扫一扫";
+"GLScanner_2"="关闭";
+"GLScanner_3"="相册";
+"GLScanner_4"="相机没有访问权限";
+"GLScanner_5"="无法访问相机";
+"GLScanner_6"="将二维码/条码放入框中，即可自动扫描";
+"GLScanner_7"="相册没有访问权限";
+"GLScanner_8"="无法访问相册";
+"GLScanner_9"="没有识别到二维码，请选择其他照片";

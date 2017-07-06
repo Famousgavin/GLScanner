@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4DD83303F332888153DCC3F3 /* libPods-GLScannerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C82A8EFC4B620ED1EAA6429 /* libPods-GLScannerDemo.a */; };
 		5CDAC1A7E9FA18A0FF223858 /* libPods-GLScannerDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D32E59FD6CD80F1E8EBDEF7 /* libPods-GLScannerDemoUITests.a */; };
+		86109FB61F0CEF20002F8D20 /* ScannerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86109FB81F0CEF20002F8D20 /* ScannerLocalizable.strings */; };
+		86109FBD1F0CF273002F8D20 /* NSString+GLLocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 86109FBC1F0CF273002F8D20 /* NSString+GLLocalizedString.m */; };
+		86109FC21F0DC9E7002F8D20 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 86109FC11F0DC9E7002F8D20 /* UIView+Utils.m */; };
 		86E3BFDC1F0B7A5900F55A46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3BFDB1F0B7A5900F55A46 /* main.m */; };
 		86E3BFDF1F0B7A5900F55A46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3BFDE1F0B7A5900F55A46 /* AppDelegate.m */; };
 		86E3BFE71F0B7A5900F55A46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86E3BFE61F0B7A5900F55A46 /* Assets.xcassets */; };
@@ -23,13 +26,10 @@
 		86E3C0271F0B7AA000F55A46 /* GLScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C01A1F0B7AA000F55A46 /* GLScannerMaskView.m */; };
 		86E3C0281F0B7AA000F55A46 /* GLScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C01C1F0B7AA000F55A46 /* GLScannerViewController.m */; };
 		86E3C0291F0B7AA000F55A46 /* GLScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 86E3C01E1F0B7AA000F55A46 /* GLScanner.bundle */; };
-		86E3C02A1F0B7AA000F55A46 /* ScannerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86E3C01F1F0B7AA000F55A46 /* ScannerLocalizable.strings */; };
 		86E3C02B1F0B7AA000F55A46 /* UIImage+GLAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C0211F0B7AA000F55A46 /* UIImage+GLAdd.m */; };
 		86E3C02D1F0B7ABF00F55A46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86E3C02C1F0B7ABF00F55A46 /* Main.storyboard */; };
 		86E3C0321F0B7AD800F55A46 /* GLMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C02F1F0B7AD800F55A46 /* GLMeViewController.m */; };
 		86E3C0331F0B7AD800F55A46 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C0311F0B7AD800F55A46 /* ViewController.m */; };
-		86E3C0391F0B7B0000F55A46 /* GLNavigationType1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C0361F0B7B0000F55A46 /* GLNavigationType1ViewController.m */; };
-		86E3C03A1F0B7B0000F55A46 /* GLNavigationType2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E3C0381F0B7B0000F55A46 /* GLNavigationType2ViewController.m */; };
 		9F4D3093FD6CD48CD3ED2833 /* libPods-GLScannerDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961AECA0AC6284FDEBDA2BBB /* libPods-GLScannerDemoTests.a */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +59,15 @@
 		565A6A0BE06C0DA236D4305C /* Pods-GLScannerDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLScannerDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLScannerDemoTests/Pods-GLScannerDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		62418853C5CEBB3FBC12FCFC /* Pods-GLScannerDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLScannerDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GLScannerDemoTests/Pods-GLScannerDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C759CC2DFD09C03D2641456 /* Pods-GLScannerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GLScannerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GLScannerDemo/Pods-GLScannerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		86109FB71F0CEF20002F8D20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ScannerLocalizable.strings; sourceTree = "<group>"; };
+		86109FB91F0CEF47002F8D20 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		86109FBA1F0CEF47002F8D20 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ScannerLocalizable.strings"; sourceTree = "<group>"; };
+		86109FBB1F0CF273002F8D20 /* NSString+GLLocalizedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GLLocalizedString.h"; sourceTree = "<group>"; };
+		86109FBC1F0CF273002F8D20 /* NSString+GLLocalizedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GLLocalizedString.m"; sourceTree = "<group>"; };
+		86109FBE1F0CF3C3002F8D20 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		86109FBF1F0CF3C3002F8D20 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ScannerLocalizable.strings"; sourceTree = "<group>"; };
+		86109FC01F0DC9E7002F8D20 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		86109FC11F0DC9E7002F8D20 /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		86E3BFD71F0B7A5900F55A46 /* GLScannerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLScannerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86E3BFDB1F0B7A5900F55A46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86E3BFDD1F0B7A5900F55A46 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,7 +97,6 @@
 		86E3C01B1F0B7AA000F55A46 /* GLScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLScannerViewController.h; sourceTree = "<group>"; };
 		86E3C01C1F0B7AA000F55A46 /* GLScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLScannerViewController.m; sourceTree = "<group>"; };
 		86E3C01E1F0B7AA000F55A46 /* GLScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GLScanner.bundle; sourceTree = "<group>"; };
-		86E3C01F1F0B7AA000F55A46 /* ScannerLocalizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = ScannerLocalizable.strings; sourceTree = "<group>"; };
 		86E3C0201F0B7AA000F55A46 /* UIImage+GLAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GLAdd.h"; sourceTree = "<group>"; };
 		86E3C0211F0B7AA000F55A46 /* UIImage+GLAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GLAdd.m"; sourceTree = "<group>"; };
 		86E3C02C1F0B7ABF00F55A46 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -96,10 +104,6 @@
 		86E3C02F1F0B7AD800F55A46 /* GLMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMeViewController.m; sourceTree = "<group>"; };
 		86E3C0301F0B7AD800F55A46 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		86E3C0311F0B7AD800F55A46 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		86E3C0351F0B7B0000F55A46 /* GLNavigationType1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNavigationType1ViewController.h; sourceTree = "<group>"; };
-		86E3C0361F0B7B0000F55A46 /* GLNavigationType1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNavigationType1ViewController.m; sourceTree = "<group>"; };
-		86E3C0371F0B7B0000F55A46 /* GLNavigationType2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLNavigationType2ViewController.h; sourceTree = "<group>"; };
-		86E3C0381F0B7B0000F55A46 /* GLNavigationType2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLNavigationType2ViewController.m; sourceTree = "<group>"; };
 		961AECA0AC6284FDEBDA2BBB /* libPods-GLScannerDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GLScannerDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -163,7 +167,8 @@
 				86E3C0311F0B7AD800F55A46 /* ViewController.m */,
 				86E3C02E1F0B7AD800F55A46 /* GLMeViewController.h */,
 				86E3C02F1F0B7AD800F55A46 /* GLMeViewController.m */,
-				86E3C0341F0B7AF200F55A46 /* Navigation */,
+				86109FC01F0DC9E7002F8D20 /* UIView+Utils.h */,
+				86109FC11F0DC9E7002F8D20 /* UIView+Utils.m */,
 				86E3C02C1F0B7ABF00F55A46 /* Main.storyboard */,
 				86E3BFE61F0B7A5900F55A46 /* Assets.xcassets */,
 				86E3BFE81F0B7A5900F55A46 /* LaunchScreen.storyboard */,
@@ -217,6 +222,8 @@
 				86E3C01A1F0B7AA000F55A46 /* GLScannerMaskView.m */,
 				86E3C01B1F0B7AA000F55A46 /* GLScannerViewController.h */,
 				86E3C01C1F0B7AA000F55A46 /* GLScannerViewController.m */,
+				86109FBB1F0CF273002F8D20 /* NSString+GLLocalizedString.h */,
+				86109FBC1F0CF273002F8D20 /* NSString+GLLocalizedString.m */,
 				86E3C01D1F0B7AA000F55A46 /* Resource */,
 				86E3C0201F0B7AA000F55A46 /* UIImage+GLAdd.h */,
 				86E3C0211F0B7AA000F55A46 /* UIImage+GLAdd.m */,
@@ -229,20 +236,9 @@
 			isa = PBXGroup;
 			children = (
 				86E3C01E1F0B7AA000F55A46 /* GLScanner.bundle */,
-				86E3C01F1F0B7AA000F55A46 /* ScannerLocalizable.strings */,
+				86109FB81F0CEF20002F8D20 /* ScannerLocalizable.strings */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		86E3C0341F0B7AF200F55A46 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				86E3C0351F0B7B0000F55A46 /* GLNavigationType1ViewController.h */,
-				86E3C0361F0B7B0000F55A46 /* GLNavigationType1ViewController.m */,
-				86E3C0371F0B7B0000F55A46 /* GLNavigationType2ViewController.h */,
-				86E3C0381F0B7B0000F55A46 /* GLNavigationType2ViewController.m */,
-			);
-			name = Navigation;
 			sourceTree = "<group>";
 		};
 		A579846C81CF8495E477B37F /* Frameworks */ = {
@@ -368,6 +364,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 86E3BFCE1F0B7A5900F55A46;
 			productRefGroup = 86E3BFD81F0B7A5900F55A46 /* Products */;
@@ -386,7 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86E3C02A1F0B7AA000F55A46 /* ScannerLocalizable.strings in Resources */,
+				86109FB61F0CEF20002F8D20 /* ScannerLocalizable.strings in Resources */,
 				86E3C02D1F0B7ABF00F55A46 /* Main.storyboard in Resources */,
 				86E3BFEA1F0B7A5900F55A46 /* LaunchScreen.storyboard in Resources */,
 				86E3C0291F0B7AA000F55A46 /* GLScanner.bundle in Resources */,
@@ -565,14 +563,14 @@
 				86E3C0221F0B7AA000F55A46 /* GLQrScanner.m in Sources */,
 				86E3C0271F0B7AA000F55A46 /* GLScannerMaskView.m in Sources */,
 				86E3C0321F0B7AD800F55A46 /* GLMeViewController.m in Sources */,
-				86E3C0391F0B7B0000F55A46 /* GLNavigationType1ViewController.m in Sources */,
 				86E3C0281F0B7AA000F55A46 /* GLScannerViewController.m in Sources */,
 				86E3C02B1F0B7AA000F55A46 /* UIImage+GLAdd.m in Sources */,
 				86E3C0231F0B7AA000F55A46 /* GLScannerBorder.m in Sources */,
 				86E3C0331F0B7AD800F55A46 /* ViewController.m in Sources */,
 				86E3C0261F0B7AA000F55A46 /* GLScannerError.m in Sources */,
+				86109FC21F0DC9E7002F8D20 /* UIView+Utils.m in Sources */,
 				86E3C0251F0B7AA000F55A46 /* GLScannerController.m in Sources */,
-				86E3C03A1F0B7B0000F55A46 /* GLNavigationType2ViewController.m in Sources */,
+				86109FBD1F0CF273002F8D20 /* NSString+GLLocalizedString.m in Sources */,
 				86E3BFDF1F0B7A5900F55A46 /* AppDelegate.m in Sources */,
 				86E3BFDC1F0B7A5900F55A46 /* main.m in Sources */,
 				86E3C0241F0B7AA000F55A46 /* GLScannerConfig.m in Sources */,
@@ -611,10 +609,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		86109FB81F0CEF20002F8D20 /* ScannerLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				86109FB71F0CEF20002F8D20 /* en */,
+				86109FBA1F0CEF47002F8D20 /* zh-Hans */,
+				86109FBF1F0CF3C3002F8D20 /* zh-Hant */,
+			);
+			name = ScannerLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		86E3BFE81F0B7A5900F55A46 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				86E3BFE91F0B7A5900F55A46 /* Base */,
+				86109FB91F0CEF47002F8D20 /* zh-Hans */,
+				86109FBE1F0CF3C3002F8D20 /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -626,6 +636,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -674,6 +685,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

@@ -54,6 +54,9 @@
     
 /**  扫描错误回调  */
 @property (nonatomic, copy) void (^onError)(NSError *error);
+
+/**  跳转本应用的设置  */
++ (BOOL)openSettingsURLString;
     
 /**  开始扫描  */
 - (void)startScan;
@@ -70,8 +73,6 @@
 /**  最大检测次数 (默认20次/传小于0无限次数)  */
 @property (nonatomic, assign) NSInteger maxDetectedCount;
 
-///**  设置应用的日志输出的开关（默认关闭  */
-//@property (nonatomic, assign, getter=isLogEnabled) BOOL logEnabled;
     
 
 

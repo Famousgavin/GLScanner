@@ -26,8 +26,6 @@
 @property (nonatomic, strong) AVCaptureMetadataOutput *output;
 /**  预览图层  */
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
-/**  绘制图层  */
-@property (nonatomic, strong) CALayer *drawLayer;
 
 /**  父视图弱引用  */
 @property (nonatomic, weak) UIView *inView;
@@ -92,7 +90,11 @@
     //3.拍摄会话 - 判断能够添加设备
     if (self.session == nil) {
         self.session = [[AVCaptureSession alloc] init];
+        if ([self.session canSetSessionPreset:AVCaptureSessionPresetHigh]) {
+            [self.session setSessionPreset:AVCaptureSessionPresetHigh];
+        }
     }
+    
     if (![self.session canAddInput:self.input]) {
         GLLog(@"无法添加输出设备");
         self.session = nil;
@@ -115,7 +117,7 @@
     [self.output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     
     //6、设置扫描的区域
-    self.output.rectOfInterest = self.scanFrame;
+//    self.output.rectOfInterest = self.scanFrame;
     
     //7.设置预览图层会话
     [self setupLayers];
@@ -133,13 +135,6 @@
     if (self.session == nil) {
         GLLog(@"拍摄会话不存在");
         return;
-    }
-    
-    // 绘制图层
-    if (self.drawLayer == nil) {
-        self.drawLayer = [CALayer layer];
-        self.drawLayer.frame = self.inView.bounds;
-        [self.inView.layer insertSublayer:self.drawLayer atIndex:0];
     }
     
     // 预览图层
@@ -220,6 +215,22 @@
             
         });
     });
+}
+
+/**  跳转本应用的设置  */
++ (BOOL)openSettingsURLString {
+    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    //    NSURL *url = [NSURL URLWithString:@"App-Prefs:root=mail"];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+#else
+        [[UIApplication sharedApplication] openURL:url];
+#endif
+        return true;
+    }else{
+        return false;
+    }
 }
     
 #pragma mark 开始扫描
@@ -306,15 +317,7 @@
 #pragma mark - Protocol
 #pragma mark  AVCaptureMetadataOutputObjectsDelegate
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    
-    //    if(metadataObjects.count > 0 && metadataObjects != nil) {
-    //        AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects lastObject];
-    //        NSString *result = metadataObject.stringValue;
-    //        [self requeSignIn:result];
-    //        [self.session stopRunning];
-    //        //        [self.scanline removeFromSuperview];
-    //    }
-    
+
     for (id obj in metadataObjects) {
         // 判断检测到的对象类型
         if (![obj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
@@ -331,88 +334,27 @@
         }
         
         if (metadataObject.stringValue.length > 0) {
-            //移除
-            [self clearDrawLayer];
             //停止扫描
             [self stopScan];
             
             // 完成回调
-            if (self.completionCallBack != nil) {
+            if (self.completionCallBack) {
                 self.completionCallBack(metadataObject.stringValue);
             }
+            [self stopScan];
         }else{
-            if (self.currentDetectedCount++ > self.maxDetectedCount) {
-                //                // 绘制边角
-                //                [self drawCornersShape:metadataObject];
-                
-                //移除
-                [self clearDrawLayer];
-                GLLog(@"识别超过最大次数。");
-            }
+//            if (self.currentDetectedCount++ > self.maxDetectedCount) {
+//                //                // 绘制边角
+//                //                [self drawCornersShape:metadataObject];
+//                
+//                //移除
+//                [self clearDrawLayer];
+//                GLLog(@"识别超过最大次数。");
+//            }
         }
-        
-        //        if (self.currentDetectedCount++ < self.maxDetectedCount) {
-        ////            // 绘制边角
-        ////            [self drawCornersShape:metadataObject];
-        //        } else {
-        //            [self stopScan];
-        //
-        //            // 完成回调
-        //            if (self.completionCallBack != nil) {
-        //                self.completionCallBack(metadataObject.stringValue);
-        //            }
-        //        }
     }
 }
-    
-#pragma mark 清空绘制图层
-- (void)clearDrawLayer {
-    if (self.drawLayer.sublayers.count == 0) {
-        return;
-    }
-    
-    [self.drawLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-}
-    
-#pragma mark 绘制条码形状 dataObject识别到的数据对象
-- (void)drawCornersShape:(AVMetadataMachineReadableCodeObject *)metadataObject {
-    
-    if (metadataObject.corners.count == 0) {
-        return;
-    }
-    
-    CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.lineWidth = 4;
-    layer.strokeColor = [UIColor greenColor].CGColor;
-    layer.fillColor = [UIColor clearColor].CGColor;
-    layer.path = [self cornersPath:metadataObject.corners];
-    
-    [self.drawLayer addSublayer:layer];
-}
-    
-#pragma mark 使用 corners 数组生成绘制路径  corners corners 数组 return 绘制路径
-- (CGPathRef)cornersPath:(NSArray *)corners {
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    CGPoint point = CGPointZero;
-    
-    //1.移动到第一个点
-    NSInteger index = 0;
-    CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corners[index++], &point);
-    [path moveToPoint:point];
-    
-    //2.遍历剩余的点
-    while (index < corners.count) {
-        CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corners[index++], &point);
-        [path addLineToPoint:point];
-    }
-    
-    //3.关闭路径
-    [path closePath];
-    
-    return path.CGPath;
-}
-    
+
     
 #pragma mark  AVCaptureVideoDataOutputSampleBuffer prptocol
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {

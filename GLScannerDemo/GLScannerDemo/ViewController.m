@@ -16,8 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
     
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *scanResultLabel;
+@property (nonatomic, strong) NSString *scanResult;
     
 @property (nonatomic, strong) NSArray *dataSource;
 
@@ -31,8 +30,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = false;
     
-    self.dataSource = @[@[@"Navigation+Model", @"Push",],
-                        @[@"Navigation+Model", @"Push",],];
+    self.dataSource = @[@[@"扫一扫(Navigation+Model)",],];
 
 }
     
@@ -59,46 +57,116 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //model
-            GLScannerController *scanner = [GLScannerController scannerWithInitRootViewBlock:^(GLScannerViewController *rootScannerView) {
+            GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
+#pragma mark 可以设置一些navigationBar的属性
+//                //标题颜色
+//                rootScannerView.titleColor = [UIColor redColor];
+
+//                //设置bar背景图片或者颜色 二选一 优先图片
+//                rootScannerView.barBackgroundImage = [UIImage imageNamed:@"bar_background"];
+//                rootScannerView.barBackgroundTintColor = [UIColor lightGrayColor];
+
+                //统一设置bar 和扫描工作的图片的颜色
+                rootScannerView.tintColor = [UIColor orangeColor];
+
+                //设置遮挡颜色
+//                rootScannerView.coverColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+
+                //自定义左侧item
+                rootScannerView.leftBarButtonItem = ^UIButton *(UIButton *leftButton) {
+                    //可以修改button的一些属性
+                    //自己创建一个返回也可以 可以自己实现触发方法
+                    return leftButton;
+                };
                 
-            } completion:^(NSString *stringValue) {
-                self.scanResultLabel.text = stringValue;
+                //自定义右侧item
+                rootScannerView.rightBarButtonItem = ^UIButton *(UIButton *rightButton) {
+//                    //可以修改button的一些属性
+//                    [rightButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+//                    //优先这里设置
+//                    [rightButton setTitle:@"Photo" forState:UIControlStateNormal];
+                    //自己创建一个返回也可以
+                    return rightButton;
+                };
+                
+                //设置语言 默认跟随系统
+                rootScannerView.languageCode = GLScannerLocalizedStringZh_Hant;
+                //或者设置语言文本
+//                rootScannerView.textStringDic[GLScannerBarTitle] = @"掃一掃";
+//                rootScannerView.textStringDic[GLScannerBarRightTitle] = @"Photo";
+//                rootScannerView.textStringDic[GLScannerDefaultTipContent] = @"将二维码放入框中，即可自动扫描";
+                
+            } completion:^(NSString *value, BOOL *dismissAnimation) {
+                self.scanResult = value;
+                [self.tableView reloadData];
+                *dismissAnimation = false;
+                
+            } error:^(GLScannerViewController *rootScannerView, NSError *error) {
+//                //错误回调可以根据 rootScannerView 是否释放扫描控制器 或者提示
+//                [rootScannerView dismissViewControllerAnimated:false completion:^{
+//                    //相机相册没有权限 跳转设置权限
+//                    if (error.code == GLSimpleScannerErrorCodeCameraPermission) {
+//                        [self showAlertPermissionWithTitle:@"相机没有访问权限，请授权使用"  fromController:self];
+//                    }else if (error.code == GLSimpleScannerErrorCodePhotoPermission) {
+//                        [self showAlertPermissionWithTitle:@"相册没有访问权限，请授权使用"  fromController:self];
+//                    }
+//                }];
+                
+                //相机相册没有权限 跳转设置权限
+                if (error.code == GLSimpleScannerErrorCodeCameraPermission) {
+                    [self showAlertPermissionWithTitle:@"相机没有访问权限，请授权使用"  fromController:self];
+                }else if (error.code == GLSimpleScannerErrorCodePhotoPermission) {
+                    [self showAlertPermissionWithTitle:@"相册没有访问权限，请授权使用"  fromController:rootScannerView];
+                }
+
             }];
-            
-            [scanner setTitleColor:[UIColor whiteColor] tintColor:[UIColor greenColor]];
-            
-            [self showDetailViewController:scanner sender:nil];
-            
-        }else if (indexPath.row == 1) {
-            //push
+            [self presentViewController:scanner animated:true completion:nil];
             
         }
         
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            //SBCodeModel
-        }else if (indexPath.row == 1) {
-            //SBCodePush
         }
-        
     }
-    
-//    GLMeetingListCell *cell = (GLMeetingListCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    GLMeetingDetailViewController *meetingDetailViewController = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([GLMeetingDetailViewController class])];
-//    meetingDetailViewController.listModel = cell.model;
-//    meetingDetailViewController.indexPath = indexPath;
-//    meetingDetailViewController.delegate = self;
-//    [self.navigationController pushViewController:meetingDetailViewController animated:true];
     
 }
     
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return @"代码初始化";
-    }else if (section == 1) {
-        return @"Storyboard初始化";
     }
     return @"";
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (self.scanResult.length > 0) {
+       return [NSString stringWithFormat:@"扫描结果：%@", self.scanResult];
+    }
+    return @"";
+}
+
+- (void)showAlertWithTitle:(NSString *)title {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:0 handler:^(UIAlertAction *action) {
+       
+    }];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (void)showAlertPermissionWithTitle:(NSString *)title fromController:(UIViewController *)fromController {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:0 handler:^(UIAlertAction *action) {
+         [GLQrScanner openSettingsURLString];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:0 handler:^(UIAlertAction *action) {
+        
+    }];
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [fromController presentViewController:alertController animated:true completion:nil];
 }
 
 @end

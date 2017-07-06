@@ -1,6 +1,6 @@
 //
 //  GLScannerMaskView.m
-//  GLCodeScanner
+//  GLScanner
 //
 //  Created by Gavin on 2017/6/29.
 //  Copyright © 2017年 Gavin. All rights reserved.
@@ -10,12 +10,12 @@
 
 @implementation GLScannerMaskView
 
-+ (instancetype)maskViewWithFrame:(CGRect)frame cropRect:(CGRect)cropRect {
++ (instancetype)maskViewWithFrame:(CGRect)frame cropRect:(CGRect)cropRect coverColor:(UIColor *)coverColor {
     
     GLScannerMaskView *maskView = [[self alloc] initWithFrame:frame];
     maskView.backgroundColor = [UIColor clearColor];
     maskView.cropRect = cropRect;
-    
+    maskView.coerColor = coverColor;
     return maskView;
 }
 
@@ -29,7 +29,7 @@
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    [[UIColor colorWithWhite:0.0 alpha:0.4] setFill];
+    [self.coerColor setFill];
     CGContextFillRect(ctx, rect);
     
     CGContextClearRect(ctx, self.cropRect);

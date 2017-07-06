@@ -1,6 +1,6 @@
 //
 //  GLScannerMaskView.h
-//  GLCodeScanner
+//  GLScanner
 //
 //  Created by Gavin on 2017/6/29.
 //  Copyright © 2017年 Gavin. All rights reserved.
@@ -15,11 +15,14 @@
 
  @param frame 视图区域
  @param cropRect 裁切区域
+ @param coverColor 裁切以外区域颜色
  @return 遮罩视图
  */
-+ (instancetype)maskViewWithFrame:(CGRect)frame cropRect:(CGRect)cropRect;
++ (instancetype)maskViewWithFrame:(CGRect)frame cropRect:(CGRect)cropRect coverColor:(UIColor *)coverColor;
 
 /**  裁切区域  */
-@property (nonatomic) CGRect cropRect;
+@property (nonatomic, assign) CGRect cropRect;
+
+@property (nonatomic, strong) UIColor *coerColor;
 
 @end

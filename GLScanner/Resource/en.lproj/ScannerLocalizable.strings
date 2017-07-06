@@ -1,0 +1,22 @@
+/* 
+  ScannerLocalizable.strings
+  GLCodeScanner
+
+  Created by Gavin on 2017/6/28.
+  Copyright © 2017年 Gavin. All rights reserved.
+*/
+
+
+"GLScanner_1"="RichScan";
+"GLScanner_2"="Close";
+"GLScanner_3"="Photo";
+"GLScanner_4"="The camera does not have access";
+"GLScanner_5"="Can not access camera";
+"GLScanner_6"="Put the two-dimensional code / bar code into the box, you can automatically scan";
+"GLScanner_7"="The album has no access";
+"GLScanner_8"="Unable to access album";
+"GLScanner_9"="Do not recognize the two-dimensional code, please select another photo";
+
+
+
+

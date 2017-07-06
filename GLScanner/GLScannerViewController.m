@@ -1,18 +1,22 @@
-//
+     //
 //  GLScannerViewController.m
-//  GLCodeScanner
+//  GLScanner
 //
 //  Created by Gavin on 2017/6/28.
 //  Copyright © 2017年 Gavin. All rights reserved.
 //
 
 
-/// 控件间距
-#define kControlMargin  42.0
-/// 相册图片最大尺寸
-#define kImageMaxSize   CGSizeMake(1000, 1000)
+// 控件间距
+#define GLScannerControlMargin  42.0
+// 相册图片最大尺寸
+#define GLScannerImageMaxSize   CGSizeMake(1000, 1000)
 
 
+#import "NSString+GLLocalizedString.h"
+#import <Photos/Photos.h>
+#import "GLScannerError.h"
+#import <AVFoundation/AVFoundation.h>
 #import "GLScannerMaskView.h"
 #import "GLScannerConfig.h"
 #import "UIImage+GLAdd.h"
@@ -21,17 +25,7 @@
 #import "GLQrScanner.h"
 
 
-typedef NS_ENUM(NSInteger, GLScannerInitType) {
-    /**  代码初始化视图  */
-    GLScannerInitTypeCode            = 0x00,
-    /**  Storyboard初始化视图  */
-    GLScannerInitTypeStoryboard,
-    
-};
-
-
 @interface GLScannerViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, CALayerDelegate>
-
 
 /**  扫描框  */
 @property (nonatomic, strong) GLScannerBorder *scannerBorder;
@@ -46,25 +40,26 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
 
 @property (nonatomic, strong) UIButton *rightButton;
 
-@property (nonatomic, assign) GLScannerInitType initType;
+/**  完成回调  */
+@property (nonatomic, copy) void (^completion)(NSString *value, BOOL *dismissAnimation);
+
+@property (nonatomic, copy) void (^error)(GLScannerViewController *rootScannerView, NSError *error);
 
 
 @end
 
 @implementation GLScannerViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if ([super initWithCoder:aDecoder]) {
-        self.initType = GLScannerInitTypeStoryboard;
-    }
-    return self;
-}
 
-+ (instancetype)scannerViewWithCompletion:(void (^)(NSString *))completion {
++ (instancetype)scannerViewWithCompletion:(void (^)(NSString *value, BOOL *dismissAnimation))completion error:(void (^)(GLScannerViewController *rootScannerView, NSError *error))error {
     
     GLScannerViewController *scannerViewController = [[GLScannerViewController alloc] init];
     scannerViewController.completion = completion;
-    scannerViewController.initType = GLScannerInitTypeCode;
+    scannerViewController.error = error;
+
+    scannerViewController.barAlphe = 1.0;
+    scannerViewController.barFontSize = 16.0;
+    
     return scannerViewController;
 }
 
@@ -73,6 +68,9 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     
     [self.scannerBorder startScannerAnimating];
     [self.scanner startScan];
+    
+    //注册进入活跃通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -80,6 +78,8 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     
     [self.scannerBorder stopScannerAnimating];
     [self.scanner stopScan];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -91,66 +91,52 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     __weak typeof(self) weakSelf = self;
     if (self.scanner == nil) {
         self.scanner = [GLQrScanner scanerWithInView:self.view scanFrame:self.scannerBorder.frame completion:^(NSString *stringValue) {
-            // 完成回调
-            if (weakSelf.completion) {
-                weakSelf.completion(stringValue);
-            }
             
-            // 关闭
-            [weakSelf clickCloseButton];
-        }];
-
-        //错误回调
-        self.scanner.onError = ^(NSError *error) {
-            if (weakSelf.onError) {
-                weakSelf.onError(error);
+            // 完成回调
+            BOOL isDismissAnimation = true;
+            if (weakSelf.completion) {
+                weakSelf.completion(stringValue, &isDismissAnimation);
             }
-        };
-        
-        
+            // 关闭
+            [weakSelf dismissViewControllerAnimated:isDismissAnimation completion:nil];
+            
+        }];
     }
-    
-//    ///添加获取图像亮度值
-//    __weak typeof(self.scanner) weakScanner = self.scanner;
-//    [self.scanner addCaptureImage:^(NSInteger bright) {
-//        if (bright > 40) {
-//            if (weakScanner.isTorchOpen) {
-//                return;
-//            }
-//            weakSelf.torchButton.hidden = YES;
-//        } else {
-//            weakSelf.torchButton.hidden = NO;
-//        }
-//    }];
 }
 
 #pragma mark 初始化UI
 - (void)initUI {
-    self.view.backgroundColor = [UIColor darkGrayColor];
+    self.view.backgroundColor = self.viewBackgroundColor;
     
     [self initNavigationBar];
     [self initScanerBorder];
     [self initOtherControls];
+    
+    [self checkPhoto];
     
 }
 
 #pragma mark 初始化导航栏
 - (void)initNavigationBar {
     //背景颜色
-    if (self.initType == GLScannerInitTypeCode) {
-        [self.navigationController.navigationBar setBarTintColor:self.barTintColor];
+    self.navigationController.navigationBar.tintColor = self.tintColor;
+    if (self.barBackgroundImage) {
+        [self.navigationController.navigationBar setBackgroundImage:self.barBackgroundImage forBarMetrics:UIBarMetricsDefault];
     }
-
+    [self.navigationController.navigationBar setBarTintColor:self.barBackgroundTintColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:self.titleColor}];
+    [[self.navigationController.navigationBar subviews].firstObject setAlpha:self.barAlphe];
     self.navigationController.navigationBar.translucent = true;
     
     //标题
-    self.title = self.titleString;
+    self.title = self.textStringDic[GLScannerBarTitle];
     
     //左右按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    leftButton.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    [leftButton setTitle:self.leftButtonTitle forState:UIControlStateNormal];
-    leftButton.titleLabel.font = [UIFont systemFontOfSize:self.navigationItemFontSize];
+    leftButton.frame = CGRectMake(0.0, 0.0, 80.0, 40.0);
+    [leftButton setTitle:self.textStringDic[GLScannerBarLeftTitle] forState:UIControlStateNormal];
+    leftButton.titleLabel.font = [UIFont systemFontOfSize:self.barFontSize];
+    leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(clickCloseButton) forControlEvents:UIControlEventTouchUpInside];
     if (self.leftBarButtonItem) {
@@ -164,24 +150,28 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     }
     
-    
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    rightButton.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    [rightButton setTitle:self.rightButtonTitle forState:UIControlStateNormal];
-    rightButton.titleLabel.font = [UIFont systemFontOfSize:self.navigationItemFontSize];
-    [rightButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(clickAlbumButton) forControlEvents:UIControlEventTouchUpInside];
-    if (self.rightBarButtonItem) {
-        UIButton *backLeftButton = self.rightBarButtonItem(rightButton);
-        if (backLeftButton) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backLeftButton];
+    if (self.hiddenRightBarButtonItem) {
+        
+    }else{
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        rightButton.frame = CGRectMake(0.0, 0.0, 80.0, 40.0);
+        [rightButton setTitle:self.textStringDic[GLScannerBarRightTitle] forState:UIControlStateNormal];
+        rightButton.titleLabel.font = [UIFont systemFontOfSize:self.barFontSize];
+        rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [rightButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+        [rightButton addTarget:self action:@selector(clickAlbumButton) forControlEvents:UIControlEventTouchUpInside];
+        if (self.rightBarButtonItem) {
+            UIButton *backLeftButton = self.rightBarButtonItem(rightButton);
+            if (backLeftButton) {
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backLeftButton];
+            }else{
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+            }
         }else{
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
         }
-    }else{
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+        self.rightButton = rightButton;
     }
-    self.rightButton = rightButton;
 }
 
 #pragma mark 初始化扫描框
@@ -189,16 +179,14 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     
     if (self.scannerBorder == nil) {
         CGFloat width = self.view.bounds.size.width - 80.0;
-        self.scannerBorder = [[GLScannerBorder alloc] initWithFrame:CGRectMake(0, 0, width, width)];
-        
-        self.scannerBorder.center = CGPointMake(self.view.center.x, self.view.center.y-40.0);
-        self.scannerBorder.tintColor = self.navigationController.navigationBar.tintColor;
-        
+        self.scannerBorder = [[GLScannerBorder alloc] initWithFrame:CGRectMake(0.0, 0.0, width, width)];
+        self.scannerBorder.center = CGPointMake(self.view.center.x, self.view.center.y-60.0);
+        self.scannerBorder.tintColor = self.tintColor;
         [self.view addSubview:self.scannerBorder];
     }
     
     //创建周围的遮罩层
-    GLScannerMaskView *maskView = [GLScannerMaskView maskViewWithFrame:self.view.bounds cropRect:self.scannerBorder.frame];
+    GLScannerMaskView *maskView = [GLScannerMaskView maskViewWithFrame:self.view.bounds cropRect:self.scannerBorder.frame coverColor:self.coverColor];
     [self.view insertSubview:maskView atIndex:0];
     
 //    if (self.maskLayer == nil) {
@@ -219,16 +207,17 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
 - (void)initOtherControls {
     
     // 提示标签
-    if (self.tipLabel == nil) {
-        self.tipLabel = [[UILabel alloc] init];
+    if (self.tipLabel == nil && !self.isHiddenTipLabel) {
+        self.tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 0.0, self.view.frame.size.width-40.0, 0.0)];
         
-        self.tipLabel.text = @"将二维码/条码放入框中，即可自动扫描";
+        self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
         self.tipLabel.font = [UIFont systemFontOfSize:13.0];
         self.tipLabel.textColor = [UIColor whiteColor];
+        self.tipLabel.numberOfLines = 0.0;
         self.tipLabel.textAlignment = NSTextAlignmentCenter;
         
         [self.tipLabel sizeToFit];
-        self.tipLabel.center = CGPointMake(self.scannerBorder.center.x, CGRectGetMaxY(self.scannerBorder.frame) + kControlMargin);
+        self.tipLabel.center = CGPointMake(self.scannerBorder.center.x, CGRectGetMaxY(self.scannerBorder.frame) + GLScannerControlMargin);
         
         [self.view addSubview:self.tipLabel];
     }
@@ -237,7 +226,7 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     if (self.torchButton == nil) {
         self.torchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.torchButton.frame = CGRectMake(0.0, 0.0, self.scannerBorder.bounds.size.width/3, self.scannerBorder.bounds.size.width/3);
-        self.torchButton.center = CGPointMake(self.scannerBorder.center.x, CGRectGetMaxY(self.scannerBorder.frame) + kControlMargin*2.0);
+        self.torchButton.center = CGPointMake(self.scannerBorder.center.x, CGRectGetMaxY(self.tipLabel.frame) + GLScannerControlMargin);
 
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *url = [bundle URLForResource:@"GLScanner" withExtension:@"bundle"];
@@ -257,28 +246,86 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     }
 }
 
+- (void)checkPhoto {
+    //检查相机是否可用和授权
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted) {
+        GLLog(@"相机权限拒绝或者在授权中");
+        self.tipLabel.text = self.textStringDic[GLScannerTipCameraNotPermission];
+        GLScannerAfter(3.0f, ^{
+            self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+        });
+        if (self.error) {
+            NSError *error = [NSError errorWithDomain:GLSimpleScannerErrorDomain code:GLSimpleScannerErrorCodeCameraPermission userInfo:nil];
+            self.error(self, error);
+            GLLog(@"%@", error.description);
+        }
+    }
+    
+    //相机是否可用
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        GLLog(@"相机不可用");
+        self.tipLabel.text = self.textStringDic[GLScannerTipCameraNotAvailable];
+        GLScannerAfter(3.0f, ^{
+            self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+        });
+        if (self.error) {
+            NSError *error = [NSError errorWithDomain:GLSimpleScannerErrorDomain code:GLSimpleScannerErrorCodeCameraNotAvailable userInfo:nil];
+            self.error(self, error);
+            GLLog(@"%@", error.description);
+        }
+        
+    }
+}
+
 
 #pragma mark - Action
 #pragma mark 点击关闭按钮
 - (void)clickCloseButton {
     [self dismissViewControllerAnimated:true completion:nil];
-    [self.navigationController popViewControllerAnimated:true];
 }
 
 #pragma mark 点击相册按钮
 - (void)clickAlbumButton {
+    
+    if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusDenied ||
+        [PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusRestricted) {
+        GLLog(@"相册用户拒绝使用或者在授权中");
+        self.tipLabel.text = self.textStringDic[GLScannerTipPhotoNotPermission];
+        GLScannerAfter(3.0f, ^{
+            self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+        });
+        if (self.error) {
+            NSError *error = [NSError errorWithDomain:GLSimpleScannerErrorDomain code:GLSimpleScannerErrorCodePhotoPermission userInfo:nil];
+            self.error(self, error);
+            
+            GLLog(@"%@", error.description);
+        }
+        return;
+    }
+    
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        self.tipLabel.text = @"无法访问相册";
-        
+        self.tipLabel.text = self.textStringDic[GLScannerTipPhotoNotAvailable];
+        GLScannerAfter(3.0f, ^{
+            self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+        });
+        GLLog(@"相册无法使用");
+        if (self.error) {
+            NSError *error = [NSError errorWithDomain:GLSimpleScannerErrorDomain code:GLSimpleScannerErrorCodePhotoNotAvailable userInfo:nil];
+            self.error(self, error);
+            GLLog(@"%@", error.description);
+        }
         return;
     }
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
     picker.view.backgroundColor = [UIColor whiteColor];
     picker.delegate = self;
+    [picker.navigationBar setBarTintColor:self.barBackgroundTintColor];
+    picker.navigationBar.tintColor = self.tintColor;
+    picker.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:self.titleColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:self.barFontSize]};
     
-    [self showDetailViewController:picker sender:nil];
+    [self presentViewController:picker animated:true completion:nil];
 }
 
 #pragma mark 点击手电筒按钮
@@ -291,7 +338,6 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     sender.selected = !sender.selected;
 }
 
-
 #pragma mark - Peotocol
 #pragma mark - UIImagePickerController Protocol
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -299,24 +345,31 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     if (image) {
         // 扫描图像
-        image = [image imageByResizeToSize:kImageMaxSize contentMode:UIViewContentModeScaleAspectFit];
+        image = [image imageByResizeToSize:GLScannerImageMaxSize contentMode:UIViewContentModeScaleAspectFit];
         [GLQrScanner scaneImage:image completion:^(NSArray *values) {
             
             if (values.count > 0) {
+                
+                // 完成回调
+                BOOL isDismissAnimation = true;
                 if (self.completion) {
-                    self.completion(values);
+                    self.completion(values.lastObject, &isDismissAnimation);
                 }
                 
-                [picker dismissViewControllerAnimated:false completion:^{
-                    [self clickCloseButton];
-                }];
-            } else {
-                self.tipLabel.text = @"没有识别到二维码，请选择其他照片";
+                [picker dismissViewControllerAnimated:isDismissAnimation completion:nil];
+            }else{
+                self.tipLabel.text = self.textStringDic[GLScannerTipImageNotFoundQrCode];
+                GLScannerAfter(3.0f, ^{
+                    self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+                });
                 [picker dismissViewControllerAnimated:true completion:nil];
             }
         }];
     }else{
-        self.tipLabel.text = @"没有识别到二维码，请选择其他照片";
+        self.tipLabel.text = self.textStringDic[GLScannerTipImageNotFoundQrCode];
+        GLScannerAfter(3.0f, ^{
+            self.tipLabel.text = self.textStringDic[GLScannerDefaultTipContent];
+        });
         [picker dismissViewControllerAnimated:true completion:nil];
     }
 }
@@ -324,7 +377,7 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
 #pragma mark 蒙版中间一块要空出来
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
     if (layer == self.maskLayer) {
-        UIGraphicsBeginImageContextWithOptions(self.maskLayer.frame.size, NO, 1.0);
+        UIGraphicsBeginImageContextWithOptions(self.maskLayer.frame.size, false, 1.0);
         //蒙版新颜色
         CGContextSetFillColorWithColor(ctx, [[UIColor blackColor] colorWithAlphaComponent:0.8].CGColor);
         CGContextFillRect(ctx, self.maskLayer.frame);
@@ -335,59 +388,81 @@ typedef NS_ENUM(NSInteger, GLScannerInitType) {
     }
 }
 
+#pragma mark - 通知
+- (void)applicationWillEnterForeground {
+    [self.scannerBorder startScannerAnimating];
+    [self.scanner startScan];
+}
+
 - (void)dealloc {
     GLLog(@"释放：%s", __func__);
-}
-
-#pragma mark - 重写
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 #pragma mark - 懒加载
-- (UIColor *)barTintColor {
-    if (_barTintColor == nil) {
-        _barTintColor = [UIColor colorWithWhite:0.1 alpha:1.0];
+- (UIColor *)titleColor {
+    if (_titleColor == nil) {
+        _titleColor = GLScannerDefaultTitleColor;
     }
-    return _barTintColor;
+    return _titleColor;
 }
 
-- (NSString *)titleString {
-    if (_titleString == nil) {
-        _titleString = @"扫一扫";
+- (UIColor *)tintColor {
+    if (_tintColor == nil) {
+        _tintColor = GLScannerDefaultTintColor;
     }
-    return _titleString;
+    return _tintColor;
 }
 
-- (NSString *)leftButtonTitle {
-    if (_leftButtonTitle == nil) {
-        _leftButtonTitle = @"关闭";
+- (UIColor *)barBackgroundTintColor {
+    if (_barBackgroundTintColor == nil) {
+        _barBackgroundTintColor = GLScannerDefaultBarBackgroundTintColor;
     }
-    return _leftButtonTitle;
+    return _barBackgroundTintColor;
 }
 
-- (NSString *)rightButtonTitle {
-    if (_rightButtonTitle == nil) {
-        _rightButtonTitle = @"相册";
+- (void)setBarAlphe:(CGFloat)barAlphe {
+    if (barAlphe > 1.0 || barAlphe < 0.0) {
+        _barAlphe = 1.0;
+    }else{
+        _barAlphe = barAlphe;
     }
-    return _rightButtonTitle;
 }
 
-- (void)setHiddenRightBarButtonItem:(BOOL)hiddenRightBarButtonItem {
-    _hiddenRightBarButtonItem = hiddenRightBarButtonItem;
-    self.rightButton.hidden = hiddenRightBarButtonItem;
+- (UIColor *)viewBackgroundColor {
+    if (_viewBackgroundColor == nil) {
+        _viewBackgroundColor = GLScannerDefaultViewBackgroundColor;
+    }
+    return _viewBackgroundColor;
 }
 
-
-- (CGFloat)navigationItemFontSize {
-    if (_navigationItemFontSize == 0.0) {
-        _navigationItemFontSize = 16.0;
+- (UIColor *)coverColor {
+    if (_coverColor == nil) {
+        _coverColor = GLScannerDefaultCoverColor;
     }
-    return _navigationItemFontSize;
+    return _coverColor;
+}
+
+- (void)setLanguageCode:(NSString *)languageCode {
+    _languageCode = languageCode;
+    [NSString setUserLanguageCode:languageCode];
+}
+
+- (NSMutableDictionary *)textStringDic {
+    if (_textStringDic == nil) {
+        _textStringDic = @{GLScannerBarTitle:[@"GLScanner_1" customLocalizedString],
+                           GLScannerBarLeftTitle:[@"GLScanner_2" customLocalizedString],
+                           GLScannerBarRightTitle:[@"GLScanner_3" customLocalizedString],
+                           GLScannerDefaultTipContent:[@"GLScanner_6" customLocalizedString],
+                           GLScannerTipCameraNotPermission:[@"GLScanner_4" customLocalizedString],
+                           GLScannerTipCameraNotAvailable:[@"GLScanner_5" customLocalizedString],
+                           GLScannerTipPhotoNotPermission:[@"GLScanner_7" customLocalizedString],
+                           GLScannerTipPhotoNotAvailable:[@"GLScanner_8" customLocalizedString],
+                           GLScannerTipImageNotFoundQrCode:[@"GLScanner_9" customLocalizedString],
+                           }.mutableCopy;
+    }
+    
+    return _textStringDic;
 }
 
 @end

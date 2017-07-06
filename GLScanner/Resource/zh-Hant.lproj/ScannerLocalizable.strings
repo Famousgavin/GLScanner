@@ -1,0 +1,23 @@
+/* 
+  ScannerLocalizable.strings
+  GLCodeScanner
+
+  Created by Gavin on 2017/6/28.
+  Copyright © 2017年 Gavin. All rights reserved.
+*/
+
+//繁体中文
+
+"GLScanner_1"="掃一掃";
+"GLScanner_2"="關閉";
+"GLScanner_3"="相冊";
+"GLScanner_4"="相機沒有訪問權限";
+"GLScanner_5"="無法訪問相機";
+"GLScanner_6"="將二維碼/條碼放入框中，即可自動掃描";
+"GLScanner_7"="相冊沒有訪問權限";
+"GLScanner_8"="無法訪問相冊";
+"GLScanner_9"="沒有識別到二維碼，請選擇其他照片";
+
+
+
+
