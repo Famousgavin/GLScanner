@@ -11,7 +11,7 @@
 ```
 <br>
  
-## GLScanner的使用
+## 使用
 在需要用到的地方 `#import <GLScanner.h>`
 ```
 GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
@@ -29,7 +29,7 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 ```
 <br>
 
-### 具体使用请点击[GLScanner的详细使用](https://cocoapods.org/)
+#### 具体使用请点击[GLScanner的详细使用](https://cocoapods.org/)
 <br>
 <br>
 
