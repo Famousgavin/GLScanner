@@ -44,6 +44,6 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 
 ## 其他
 为了不影响您项目中导入的其他第三方库，本库没有导入任何其他的第三方内容，可以放心使用。在使用前，您有任何不明白都可以查看Demo或者点击[使用方法]()。
-*如果在使用过程中遇到BUG，希望你能Issues我，谢谢（或者尝试下载最新的框架代码看看BUG修复没有）
-*如果您有什么建议可以Issues我，谢谢
-*后续我会持续更新，为它添加更多的功能，欢迎star :)
+* 如果在使用过程中遇到BUG，希望你能Issues我，谢谢（或者尝试下载最新的框架代码看看BUG修复没有）
+* 如果您有什么建议可以Issues我，谢谢
+* 后续我会持续更新，为它添加更多的功能，欢迎star :)
