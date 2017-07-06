@@ -3,11 +3,27 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLScanner.svg)
 
 
-**GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；支持代码和Storyboard两种初始化方式。
+**GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；个性化修改，错误处理回调。
 
  
 ## GLScanner的使用
 在需要用到的地方 `#import <GLScanner.h>`
+
+```
+GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
+#pragma mark UI初始化个性修改 
+
+} completion:^(NSString *value, BOOL *dismissAnimation) {
+#pragma mark 扫描成功处理
+
+} error:^(GLScannerViewController *rootScannerView, NSError *error) {
+#pragma mark 错误处理
+
+}];
+
+[self presentViewController:scanner animated:true completion:nil];
+
+```
 
 <!--HUPhotoBrowser支持本地图片浏览-->
 <!---->
