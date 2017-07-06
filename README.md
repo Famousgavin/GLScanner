@@ -17,8 +17,8 @@
 
 在需要用到的地方 `#import <GLScanner.h>`
 
-Xcode8.0以上要求在使用相机或者相册等，项目`info.plist`要添加<font face="黑体">`Privacy - Photo Library Usage Description`</font> 和 `Privacy - Camera Usage Description` 键值对，不然不给访问;不然不给访问;不然不给访问。千万别忘记了!!!!!!!!
-
+Xcode8.0以上要求在使用相机或者相册等，项目`info.plist`要添加 `Privacy - Photo Library Usage Description` 和 `Privacy - Camera Usage Description` 键值对，不然不给访问;不然不给访问;不然不给访问。千万别忘记了!!!!!!!!
+<br>
 ```
 GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GLScannerViewController *rootScannerView) {
 	#pragma mark UI初始化个性修改 
