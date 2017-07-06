@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "GLScanner"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；个性化修改，支持多语言"
   s.description  = <<-DESC
                     最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取；个性化修改，错误处理回调；支持多语言。
