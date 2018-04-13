@@ -58,3 +58,4 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 * 如果在使用过程中遇到BUG，希望你能Issues我，谢谢（或者尝试下载最新的框架代码看看BUG修复没有）
 * 如果您有什么建议可以Issues我，谢谢
 * 后续我会持续更新，为它添加更多的功能，欢迎star :)
+* 欢迎关注本人的博客：[http://www.dhlee.cn](http://www.dhlee.cn)
