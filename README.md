@@ -1,6 +1,7 @@
 # GLScanner
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gavin-ldh/GLScanner/master/LICENSE)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/GLCodeScanner.svg)](https://img.shields.io/cocoapods/v/GLScanner.svg)
+[![Languages](https://img.shields.io/badge/language-objc-FF69B4.svg?style=plastic)](#)
 
 
 **GLScanner** 最好用的iOS二维码、条形码，扫描、生成框架，支持闪光灯，从相册获取，支持多语言；个性化修改，错误处理回调。
@@ -53,7 +54,10 @@ GLScannerController *scanner = [GLScannerController scannerWithInitRootView:^(GL
 <br>
 <br>
 
-## 三、其它
+## 三、更新
+
+
+## 四、其它
 为了不影响您项目中导入的其他第三方库，本库没有导入任何其他的第三方内容，可以放心使用。在使用前，您有任何不明白都可以查看Demo或者点击[使用详解](http://www.jianshu.com/p/f9ca42635689)。
 * 如果在使用过程中遇到BUG，希望你能Issues我，谢谢（或者尝试下载最新的框架代码看看BUG修复没有）
 * 如果您有什么建议可以Issues我，谢谢
