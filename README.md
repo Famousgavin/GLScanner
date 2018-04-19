@@ -1,6 +1,6 @@
 # GLScanner
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com//Gavin-ldh/GLScanner/master/License)
-[![CocoaPods](https://img.shields.io/badge/pod-v0.2.4-28B9FE.svg)](http://cocoapods.org/pods/GLScanner)
+[![CocoaPods](https://img.shields.io/badge/pod-v1.0.1-28B9FE.svg)](http://cocoapods.org/pods/GLScanner)
 ![Platforms](https://img.shields.io/badge/platforms-iOS-orange.svg)
 [![Languages](https://img.shields.io/badge/language-objc-FF69B4.svg?style=plastic)](#)
 
